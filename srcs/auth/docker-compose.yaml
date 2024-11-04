@@ -1,0 +1,26 @@
+version: '3.8'
+
+networks:
+  my_network:
+    driver: bridge
+    name: my_network
+
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+
+  auth:
+    build: .
+    volumes:
+      - "./src:/app/src"
+    ports:
+      - "5432:5432"
+      - "8000:8000"
+    depends_on:
+      - db
+
