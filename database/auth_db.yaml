@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-pvc-auth
 spec:
   accessModes:
     - ReadWriteOnce
@@ -45,7 +45,7 @@ spec:
             - name: POSTGRES_USER
               value: "auth_db"
             - name: POSTGRES_PASSWORD
-              value: "adminpassword"
+              value: "authpsw"
             - name: POSTGRES_DB
               value: "postgre_auth"
           volumeMounts:
@@ -54,4 +54,4 @@ spec:
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: postgres-pvc-auth

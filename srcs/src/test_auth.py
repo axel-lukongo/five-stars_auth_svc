@@ -28,7 +28,7 @@ def get_db_test():
 def test_register():
     # Données d'utilisateur pour l'enregistrement
     user_data = {
-        "username": "testuser",
+        "username": "testuser0",
         "password": "testpassword"
     }
 
@@ -47,7 +47,7 @@ def test_register():
 def test_login():
     # Données d'utilisateur pour l'enregistrement
     user_data = {
-        "username": "testuser",
+        "username": "testuser1",
         "password": "testpassword"
     }
 
@@ -65,10 +65,12 @@ def test_login():
     token = response.json()["token"]
     assert token is not None
 
+
+
 # Test de l'échec de la connexion avec un mot de passe incorrect
 def test_login_fail_wrong_password():
     user_data = {
-        "username": "testuser",
+        "username": "testuser0",
         "password": "wrongpassword"
     }
 
