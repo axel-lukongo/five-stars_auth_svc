@@ -19,7 +19,7 @@ COPY ./src /app/src
 WORKDIR /app/src
 
 # Exposer le port sur lequel l'application s'exécute (par défaut, FastAPI utilise 8000)
-EXPOSE 8000
+EXPOSE 8001
 
 # Démarrer l'application avec Uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

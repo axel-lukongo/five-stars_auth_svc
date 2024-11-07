@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main  # ou un autre nom de branche où vous voulez exécuter les tests
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15  # ou la version que vous utilisez
+        env:
+          POSTGRES_USER: auth_db
+          POSTGRES_PASSWORD: authpsw
+          POSTGRES_DB: postgre_auth
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U friend_db"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DATABASE_URL: postgres://friend_db:friendpsw@localhost:5432/postgre_auth
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r srcs/requirements.txt
+      - name: Run tests
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: |
+          pytest --tb=short --disable-warnings
