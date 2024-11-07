@@ -7,7 +7,7 @@ import crud, schemas
 
 # Crée une base de données en mémoire pour les tests
 SQLALCHEMY_DATABASE_URL = "postgresql://auth_db:authpsw@localhost:5432/postgre_auth"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocalTest = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Crée les tables dans la base de données en mémoire
